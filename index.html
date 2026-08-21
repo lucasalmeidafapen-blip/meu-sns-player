@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+          content="width=device-width, initial-scale=1.0">
 
     <title>SNES Player</title>
 
@@ -16,45 +18,43 @@
 
         <header>
             <h1>🎮 SNES PLAYER</h1>
-            <p>Carregando jogo...</p>
+            <span>Carregando jogo...</span>
         </header>
 
-        <main>
-            <div id="game"></div>
-        </main>
+        <div id="game"></div>
 
     </div>
 
-    <script>
-        /*
-         * CONFIGURAÇÃO DO EMULATORJS
-         */
 
+    <script>
+        // Elemento onde o EmulatorJS será exibido
         EJS_player = "#game";
 
-        // Núcleo do Super Nintendo
+        // Core do Super Nintendo
         EJS_core = "snes";
 
-        // ROM que será carregada automaticamente
+        // ROM
         EJS_gameUrl = "roms/game.sfc";
 
-        // Nome exibido pelo emulador
+        // Nome do jogo
         EJS_gameName = "SNES Game";
 
-        // Pasta dos arquivos do EmulatorJS
+        // Local dos arquivos do EmulatorJS
         EJS_pathtodata = "emulatorjs/data/";
 
-        // Iniciar automaticamente
+        // Inicialização automática
         EJS_startOnLoaded = true;
 
-        // Permitir salvar estados
+        // Controles e opções
         EJS_defaultOptions = {
-            "save-state": true,
-            "fullscreen": true
+            "fullscreen": true,
+            "save-state": true
         };
     </script>
+
 
     <script src="emulatorjs/data/loader.js"></script>
 
 </body>
+
 </html>
