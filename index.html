@@ -9,51 +9,49 @@
 
     <title>SNES Player</title>
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
+        }
+
+        #game {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="page">
-
-        <header>
-            <h1>🎮 SNES PLAYER</h1>
-            <span>Carregando jogo...</span>
-        </header>
-
-        <div id="game"></div>
-
-    </div>
-
+    <div id="game"></div>
 
     <script>
-        // Elemento onde o EmulatorJS será exibido
+        // Onde o EmulatorJS será exibido
         EJS_player = "#game";
 
-        // Core do Super Nintendo
+        // Super Nintendo
         EJS_core = "snes";
 
-        // ROM
+        // Sua ROM
         EJS_gameUrl = "roms/game.sfc";
 
         // Nome do jogo
-        EJS_gameName = "SNES Game";
+        EJS_gameName = "Super Nintendo";
 
-        // Local dos arquivos do EmulatorJS
-        EJS_pathtodata = "emulatorjs/data/";
+        // Usar a versão Stable oficial do EmulatorJS
+        EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
 
-        // Inicialização automática
+        // Iniciar automaticamente
         EJS_startOnLoaded = true;
-
-        // Controles e opções
-        EJS_defaultOptions = {
-            "fullscreen": true,
-            "save-state": true
-        };
     </script>
 
-
-    <script src="emulatorjs/data/loader.js"></script>
+    <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
 
 </body>
 
