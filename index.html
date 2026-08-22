@@ -5,11 +5,16 @@
     <meta charset="UTF-8">
 
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+          content="width=device-width, initial-scale=1.0,
+                   maximum-scale=1.0, user-scalable=no">
 
     <title>SNES Player</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         html,
         body {
             margin: 0;
@@ -17,6 +22,8 @@
             width: 100%;
             height: 100%;
             background: #000;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
             overflow: hidden;
         }
 
@@ -24,36 +31,176 @@
             width: 100%;
             height: 100%;
         }
+
+        #start-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            background: #111;
+            text-align: center;
+
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        #start-screen h1 {
+            margin: 0 0 12px;
+            font-size: 28px;
+            letter-spacing: 2px;
+        }
+
+        #start-screen p {
+            margin: 0 0 25px;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        #start-button {
+            padding: 16px 30px;
+
+            border: 2px solid #fff;
+            border-radius: 10px;
+
+            background: #222;
+            color: #fff;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        #start-button:active {
+            transform: scale(0.96);
+        }
+
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 
 <body>
 
+    <!-- Tela que exige uma interação do usuário -->
+    <div id="start-screen">
+
+        <h1>🎮 SNES PLAYER</h1>
+
+        <p>
+            Toque para iniciar o jogo
+        </p>
+
+        <div id="start-button">
+            ▶ TOCAR PARA JOGAR
+        </div>
+
+    </div>
+
+
+    <!-- Área onde o EmulatorJS será carregado -->
     <div id="game"></div>
 
+
     <script>
-        // Onde o EmulatorJS será exibido
+
+        /*
+         * CONFIGURAÇÃO DO EMULATORJS
+         */
+
         EJS_player = "#game";
 
         // Super Nintendo
         EJS_core = "snes";
 
-        // Sua ROM
+        // ROM
         EJS_gameUrl = "roms/game.sfc";
 
         // Nome do jogo
-        EJS_gameName = "Super Nintendo";
+        EJS_gameName = "SNES Game";
 
-        // Usar a versão Stable oficial do EmulatorJS
-        EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+        // CDN oficial do EmulatorJS
+        EJS_pathtodata =
+            "https://cdn.emulatorjs.org/stable/data/";
 
-        // Iniciar automaticamente
-        EJS_startOnLoaded = true;
+        /*
+         * IMPORTANTE:
+         * Não iniciar automaticamente.
+         * O usuário primeiro toca no botão.
+         */
+        EJS_startOnLoaded = false;
+
+        // Interface para dispositivos móveis
         EJS_browserMode = "mobile";
+
+        // Controles SNES
         EJS_controlScheme = "snes";
+
     </script>
 
+
     <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+
+
+    <script>
+
+        /*
+         * Quando o usuário tocar,
+         * escondemos a tela inicial e iniciamos o jogo.
+         */
+
+        const startScreen =
+            document.getElementById("start-screen");
+
+        const startButton =
+            document.getElementById("start-button");
+
+
+        function startGame() {
+
+            startScreen.classList.add("hidden");
+
+            /*
+             * O loader do EmulatorJS já foi carregado.
+             * A interação do usuário permite que o navegador
+             * libere a inicialização.
+             */
+
+            if (typeof EJS_start === "function") {
+                EJS_start();
+            }
+
+        }
+
+
+        startScreen.addEventListener(
+            "click",
+            startGame
+        );
+
+
+        startScreen.addEventListener(
+            "touchend",
+            function (event) {
+
+                event.preventDefault();
+
+                startGame();
+
+            },
+            {
+                passive: false
+            }
+        );
+
+    </script>
 
 </body>
 
